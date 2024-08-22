@@ -1,38 +1,105 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  background: #C1E5ED;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  /*overflow: visible;*/
 }
 
-.App-link {
-  color: #61dafb;
+.app {
+  text-align: center;
+  margin: 1rem;
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  color: #05445E;
+}
+
+.todo-wrapper {
+  background: #D4F1F4;
+  margin-top: 5rem;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
+.todo-form {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.todo-input {
+  outline: none;
+  background: none;
+  border: 1px solid #7EC9DB;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  width: 300px;
+  color: #05445E;
+}
+
+.todo-input::placeholder {
+  color: #05445E;
+}
+
+.todo-btn {
+  background: #7EC9DB;
+  color: #05445E;
+  border: none;
+  padding: 0.55rem;
+  cursor: pointer;
+}
+
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #7EC9DB;
+  color: #05445E;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  line-break: auto;
+
+  max-width: 500px;
+}
+
+.todo-icons {
+  display: flex;
+  margin-left: 2rem;
+  gap: 1rem;
+}
+
+.edit-icon,
+.delete-icon {
+  cursor: pointer;
+}
+
+
+.incompleted {
+  color: #fff;
+  cursor: pointer;
+}
+
+.completed {
+  color: #eeeeee;
+  text-decoration: line-through;
+  cursor: pointer;
+}
+
+.checkbox {
+  display: flex;
+  margin-right: 1rem;
 }
