@@ -3,25 +3,42 @@ import {TodoForm} from "./todo-form";
 import {Todo} from "./todo";
 import {EditTodoForm} from "./edit-todo-form";
 import axios from "axios";
-import {getTodoList, addNewTodo,deleteTodo} from "../services/todo-service";
 
 export const TodoWrapper = () => {
     const [todos, setTodos] = useState([]);
-    useEffect(() => {    const loadData = async () => {
-        const result = await getTodoList();
-        setTodos(result);
-    };
-        loadData();
-    }, []);
+    useEffect(() => {
+        getTodoList();
+    },[]);
 
-    const addTodo = async (todo) => {
-        const result = await addNewTodo();
-        setTodos([...todos, {id: result.data.id, task: result.data.task, completed: result.data.completed, isEditing: result.data.isEditing}])
+    const getTodoList = async () => {
+        try{
+            const response = await axios.get("https://66c57948134eb8f434946b95.mockapi.io/api/v1/todo");
+            if (response) {
+                return response.data;
+            }
+        }
+        catch(err){}
     }
 
-    const deleteOneTodo = async (id) => {
-        await deleteTodo(id);
-        setTodos(todos.filter((todo) => todo.id !== id));
+    const addTodo = async (todo) => {
+        try{
+            const response = await axios.post("https://66c57948134eb8f434946b95.mockapi.io/api/v1/todo", {task: todo, completed: false, isEditing: false});
+            if (response) {
+                return setTodos([...todos, {id: response.data.id, task: response.data.task, completed: response.data.completed, isEditing: response.data.isEditing}])
+
+            }
+        }
+        catch(err){}
+    }
+
+    const deleteTodo = async (id) => {
+        try{
+            await axios.delete(`https://66c57948134eb8f434946b95.mockapi.io/api/v1/todo/${id}`);
+
+                setTodos(todos.filter((todo) => todo.id !== id));
+
+        }
+        catch(err){console.log('Something went wrong')}
     }
 
     const editText =  (id, todo) => {
@@ -69,7 +86,7 @@ export const TodoWrapper = () => {
                     <Todo
                         key={todo.id}
                         task={todo}
-                        deleteOneTodo={deleteOneTodo}
+                        deleteTodo={deleteTodo}
                         editText={editText}
                         toggleComplete={toggleComplete}
                     />
