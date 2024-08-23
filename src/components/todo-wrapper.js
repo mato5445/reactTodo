@@ -14,7 +14,7 @@ export const TodoWrapper = () => {
         try{
             const response = await axios.get("https://66c57948134eb8f434946b95.mockapi.io/api/v1/todo");
             if (response) {
-                return response.data;
+                setTodos(response.data);
             }
         }
         catch(err){}
@@ -24,7 +24,7 @@ export const TodoWrapper = () => {
         try{
             const response = await axios.post("https://66c57948134eb8f434946b95.mockapi.io/api/v1/todo", {task: todo, completed: false, isEditing: false});
             if (response) {
-                return setTodos([...todos, {id: response.data.id, task: response.data.task, completed: response.data.completed, isEditing: response.data.isEditing}])
+                 setTodos([...todos, {id: response.data.id, task: response.data.task, completed: response.data.completed, isEditing: response.data.isEditing}])
 
             }
         }
@@ -65,12 +65,19 @@ export const TodoWrapper = () => {
 
     };
 
-    const toggleComplete = (id) => {
-        setTodos(
-            todos.map((todo) =>
-                todo.id === id ? { ...todo, completed: !todo.completed } : todo
-            )
-        );
+    const toggleComplete = async (task) => {
+        try{
+            const response = await axios.put(`https://66c57948134eb8f434946b95.mockapi.io/api/v1/todo/${task.id}`, {completed: !task.completed});
+            if (response) {
+                setTodos(
+                    todos.map((todo) =>
+                        todo.id === task.id ? { ...todo, completed: !todo.completed } : todo
+                    )
+                );
+            }
+        }
+        catch(err){}
+
     }
 
 
